@@ -24,13 +24,7 @@ import teamten.tacoma.uw.edu.doit.model.DoItList.DoItList;
  */
 public class DoItStationFragment extends Fragment {
 
-<<<<<<< HEAD
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 2;
-    private OnDoItStationFragmentInteractionListener mDoItStationListener;
-=======
+
     private int mColumnCount = 1;
 
     private static final String COURSE_URL
@@ -43,7 +37,7 @@ public class DoItStationFragment extends Fragment {
     private CourseDB mCourseDB;
     private List<Course> mCourseList;
     private OnDoItStationFragmentInteractionListener mListener;
->>>>>>> database
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
