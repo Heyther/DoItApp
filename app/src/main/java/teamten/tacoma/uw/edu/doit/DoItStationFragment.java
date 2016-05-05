@@ -80,7 +80,7 @@ public class DoItStationFragment extends Fragment {
             }
 //            recyclerView.setAdapter(new MyDoItListRecyclerViewAdapter(DoItList.ITEMS, mListener));
         }
-        getActivity().setTitle("Add New List");
+        getActivity().setTitle("Station");
 
         return view;
     }

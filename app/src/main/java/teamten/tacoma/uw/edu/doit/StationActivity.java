@@ -63,7 +63,6 @@ public class StationActivity extends AppCompatActivity implements DoItStationFra
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("Station");
 
     }
 
