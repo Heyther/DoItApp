@@ -1,14 +1,14 @@
 package teamten.tacoma.uw.edu.doit;
 
 import android.support.v7.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import teamten.tacoma.uw.edu.doit.model.DoItList;
-import teamten.tacoma.uw.edu.doit.model.DoItList.Task;
+
+import teamten.tacoma.uw.edu.doit.model.DoItListCollection.DoItList;
+
 
 import java.util.List;
 
@@ -34,6 +34,8 @@ public class MyDoItListRecyclerViewAdapter extends RecyclerView.Adapter<MyDoItLi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
+        holder.mIdView.setText(mValues.get(position).id);
+        holder.mContentView.setText(mValues.get(position).content);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

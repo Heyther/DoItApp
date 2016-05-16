@@ -1,7 +1,6 @@
 package teamten.tacoma.uw.edu.doit;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,31 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
-import teamten.tacoma.uw.edu.doit.model.DoItList;
-import teamten.tacoma.uw.edu.doit.model.DoItList.Task;
+import teamten.tacoma.uw.edu.doit.model.DoItListCollection;
+import teamten.tacoma.uw.edu.doit.model.DoItListCollection.DoItList;
 
 /**
- * A fragment representing a list of Items. (Verbose View)
+ * A fragment representing a list of Items.
  * <p/>
  * Activities containing this fragment MUST implement the {@link OnDoItStationFragmentInteractionListener}
  * interface.
  */
 public class DoItStationFragment extends Fragment {
 
-    private OnDoItStationFragmentInteractionListener mDoItStationListener;
-    private int mColumnCount = 2;
-
+    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private static final String COURSE_URL
-            = "http://http://cssgate.insttech.washington.edu/~_450atm10/android/station.php?cmd=station&email=";
-
-    private String mUserEmail;
-    private RecyclerView mRecyclerView;
-
-//    private CourseDB mCourseDB;
-//    private List<Course> mCourseList;
+    // TODO: Customize parameters
+    private int mColumnCount = 2;
     private OnDoItStationFragmentInteractionListener mListener;
 
     /**
@@ -78,10 +67,9 @@ public class DoItStationFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-//            recyclerView.setAdapter(new MyDoItListRecyclerViewAdapter(DoItList.ITEMS, mListener));
-        }
-        getActivity().setTitle("Station");
 
+            recyclerView.setAdapter(new MyDoItListRecyclerViewAdapter(DoItListCollection.ITEMS, mListener));
+        }
         return view;
     }
 
@@ -90,7 +78,7 @@ public class DoItStationFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnDoItStationFragmentInteractionListener) {
-            mDoItStationListener = (OnDoItStationFragmentInteractionListener) context;
+            mListener = (OnDoItStationFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnDoItStationFragmentInteractionListener");
@@ -100,7 +88,7 @@ public class DoItStationFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mDoItStationListener = null;
+        mListener = null;
     }
 
     /**
@@ -114,6 +102,7 @@ public class DoItStationFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnDoItStationFragmentInteractionListener {
+
         void onListFragmentInteraction(DoItList item);
     }
 }

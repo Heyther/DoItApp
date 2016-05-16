@@ -2,6 +2,7 @@ package teamten.tacoma.uw.edu.doit.Data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -15,14 +16,14 @@ public class StationDB {
     public static final int DB_VERSION = 2;
     public static final String DB_NAME = "LoginReg.db";
 
-    private StationDBHelper mStationDBHelper;
+    private LoginRegDBHelper mLoginRegDBHelper;
     private SQLiteDatabase mSQLiteDatabase;
 
 
-    public StationDB(Context context) {
-        mStationDBHelper = new StationDBHelper(
+    public LoginRegDB(Context context) {
+        mLoginRegDBHelper = new mLoginRegDBHelper(
                 context, DB_NAME, null, DB_VERSION);
-        mSQLiteDatabase = mStationDBHelper.getWritableDatabase();
+        mSQLiteDatabase = mLoginRegDBHelper.getWritableDatabase();
     }
 
     public void closeDB() {
@@ -35,35 +36,35 @@ public class StationDB {
      * Returns the list of courses from the local Course table.
      * @return list
      */
-//    public List<Course> getCourses() {
-//
-//        String[] columns = {
-//                "id", "shortDesc", "longDesc", "prereqs"
-//        };
-//
-//        Cursor c = mSQLiteDatabase.query(
-//                COURSE_TABLE,  // The table to query
-//                columns,                               // The columns to return
-//                null,                                // The columns for the WHERE clause
-//                null,                            // The values for the WHERE clause
-//                null,                                     // don't group the rows
-//                null,                                     // don't filter by row groups
-//                null                                 // The sort order
-//        );
-//        c.moveToFirst();
-//        List<Course> list = new ArrayList<Course>();
-//        for (int i=0; i<c.getCount(); i++) {
-//            String id = c.getString(0);
-//            String shortDesc = c.getString(1);
-//            String longDesc = c.getString(2);
-//            String prereqs = c.getString(3);
-//            Course course = new Course(id, shortDesc, longDesc, prereqs);
-//            list.add(course);
-//            c.moveToNext();
-//        }
-//
-//        return list;
-//    }
+    public List<Course> getCourses() {
+
+        String[] columns = {
+                "id", "shortDesc", "longDesc", "prereqs"
+        };
+
+        Cursor c = mSQLiteDatabase.query(
+                COURSE_TABLE,  // The table to query
+                columns,                               // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                 // The sort order
+        );
+        c.moveToFirst();
+        List<Course> list = new ArrayList<Course>();
+        for (int i=0; i<c.getCount(); i++) {
+            String id = c.getString(0);
+            String shortDesc = c.getString(1);
+            String longDesc = c.getString(2);
+            String prereqs = c.getString(3);
+            Course course = new Course(id, shortDesc, longDesc, prereqs);
+            list.add(course);
+            c.moveToNext();
+        }
+
+        return list;
+    }
 
 
 
@@ -75,7 +76,7 @@ public class StationDB {
      * @param prereqs
      * @return true or false
      */
-    public boolean insertStation(String id, String shortDesc, String longDesc, String prereqs) {
+    public boolean insertLoginReg(String id, String shortDesc, String longDesc, String prereqs) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("id", id);
         contentValues.put("shortDesc", shortDesc);
@@ -87,33 +88,29 @@ public class StationDB {
     }
 
     /**
-     * Delete all the data from the TABLE
+     * Delete all the data from the COURSE_TABLE
      */
-    public void deleteStation() {
+    public void deleteLoginReg() {
         mSQLiteDatabase.delete(COURSE_TABLE, null, null);
     }
 
 
-    class StationDBHelper extends SQLiteOpenHelper {
+    class LoginRegDBHelper extends SQLiteOpenHelper {
 
-        private static final String CREATE_LIST_SQL =
-                "CREATE TABLE IF NOT EXISTS List "
-                        + "(id TEXT PRIMARY KEY, shortDesc TEXT, longDesc TEXT, prereqs TEXT)";
-        private static final String CREATE_TASK_SQL =
-                "CREATE TABLE IF NOT EXISTS task "
+        private static final String CREATE_COURSE_SQL =
+                "CREATE TABLE IF NOT EXISTS Course "
                         + "(id TEXT PRIMARY KEY, shortDesc TEXT, longDesc TEXT, prereqs TEXT)";
 
         private static final String DROP_COURSE_SQL =
-                "DROP TABLE IF EXISTS List";
+                "DROP TABLE IF EXISTS Course";
 
-        public StationDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        public CourseDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
             super(context, name, factory, version);
         }
 
         @Override
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
-            sqLiteDatabase.execSQL(CREATE_LIST_SQL);
-            sqLiteDatabase.execSQL(CREATE_TASK_SQL);
+            sqLiteDatabase.execSQL(CREATE_COURSE_SQL);
         }
 
         @Override
